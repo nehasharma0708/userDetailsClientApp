@@ -17,20 +17,31 @@
 
  	$scope.done = function done () {
  		let userName = document.getElementById('name').value;
- 	 	$http({
+ 		let email = document.getElementById('email').value;
+ 		let phone = document.getElementById('phone').value;
+
+ 		$http({
  			method: 'POST',
  			url: 'http://localhost:8000/user',
  			data: { 
- 				name: userName
- 			},
- 			headers: {
- 				'Content-Type': 'application/json'
+ 				name: userName,
+ 				email: email,
+ 				phone: phone
  			}
  		}).then(function successCallback(response) {
- 			console.log('success');
  			$scope.usernameText = response.data.message;
+ 			$http({
+ 				method: 'GET',
+ 				url: 'http://localhost:8000/user'
+ 			}).then(function successCallback(response) {
+ 				console.log(response.data.message);
+ 				$scope.result = response.data.message;
+ 			}, function errorCallback() {    
+ 				console.log('Failure');
+ 			});
  		}, function errorCallback() {    
  			console.log('Failure');
  		});
+ 		
  	};
  });
