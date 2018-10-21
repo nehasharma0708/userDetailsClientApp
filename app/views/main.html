@@ -1,30 +1,63 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-12 col-lg-12">
-        <form class="form-horizontal" role="form" ng-submit="done()">
+      <form class="form-horizontal" role="form" ng-submit="done()">
+        <div class="form-group"><strong> Leave a comment</strong>
+          <textarea rows="5" class="form-control" id="cmtName" ng-model="cmtName" placeholder="Enter your comment..."></textarea>
+          <p id="userText">{{userText}}</p>
+        </div>
         <div class="form-group">
           <label for="name">Username :</label>
           <input  class="form-control" id="name" ng-model="name" required>
-          <p id="usernameText">{{usernameText}}</p>
         </div>
         <div class="form-group">
-          <label for="name">Email :</label>
-          <input  class="form-control" id="email" ng-model="email" required>
+          <label for="name">City :</label>
+          <input class="form-control" id="city" ng-model="city">
+          <div>
+            <span ng-if="cityName">City : {{cityName}}</span>
+            <span ng-if="latlng">, Location : {{latlng}}</span>
+            <span ng-if="temperature">, Temperature : {{temperature}}</span>
+            <span ng-if="error">{{error}}</span>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="name">Phone :</label>
-          <input type="number" class="form-control" id="phone" ng-model="phone">
-        </div>
-       <div class="form-group">               
-           <input type="submit" value="Done" class="btn btn-primary"/>
-      </div>
-      </form>
-      <div ng-if="result">
+        <div class="form-group">               
+         <input type="submit" value="Done" class="btn btn-primary"/>
+       </div>
+     </form>
+     <div ng-if="resultArray">
+      <ul class="list-group">
+        <!-- Result Array to show all the comments from server -->
+        <li class="list-group-item" ng-repeat="result in resultArray">{{result.cmtName}}
+          <span> - {{result.username}}</span>
+          <span> , {{result.date}}</span>
+          <ul class="list-group" ng-if="result.resComments" id="ul">
+              <!-- Array to show all the reply to comments from server -->
+
+               <list class="list-group-item" ng-repeat="resComment in result.resComments"> Reply: {{resComment.comment}}  - {{resComment.commentUser}}, {{resComment.newDate}}</list>
+          </ul>
+          <button ng-click="replyBtn($index)">Reply</button>
+          <div id="commentSection" ng-show="replyBtnClicked[$index]">
+            <div ng-controller="CommentCtrl" class="form-group">
+              <ul class="list-group" ng-if="comments">
+               <list class="list-group-item" ng-repeat="comnt in comments"> Reply: {{comnt.comment}}  - {{comnt.commentUser}}, {{comnt.newDate}} </list>
+              </ul>
+              <textarea ng-model="txtcomment2" placeholder="Reply..." ></textarea>
+              <button ng-click='btn_add($index)'>Post</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+
+      <!-- <div ng-if="result">
         <div>Name : {{result.username}}</div>
+
         <div>Email : {{result.email}}</div>
         <div>Phone : {{result.phone}}</div>
+
         <div>Date : {{result.date}}</div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
