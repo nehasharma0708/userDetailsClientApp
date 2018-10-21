@@ -29,7 +29,7 @@
 
  		$http({
  			method: 'POST',
- 			url: 'http://localhost:8000/user',
+ 			url: 'https://localhost:8443/user/',
  			data: { 
  				name: userName,
  				date : new Date(),
@@ -40,7 +40,7 @@
 
  			$http({
  				method: 'GET',
- 				url: 'http://localhost:8000/user'
+ 				url: 'https://localhost:8443/user/'
  			}).then(function successCallback(response) {
  				console.log(response.data.message);
  				$scope.resultArray = response.data.message;

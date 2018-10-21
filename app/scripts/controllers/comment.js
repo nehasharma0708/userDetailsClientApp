@@ -40,7 +40,7 @@
  			}	
  			$http({
  				method: 'PUT',
- 				url: 'http://localhost:8000/user',
+ 				url: 'https://localhost:8443/user/',
  				data: { 
  					name: $scope.resultArray[$index].username,
  					cmtName : $scope.resultArray[$index].cmtName,
