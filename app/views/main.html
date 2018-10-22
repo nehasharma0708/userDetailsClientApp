@@ -27,21 +27,22 @@
      <div ng-if="resultArray">
       <ul class="list-group">
         <!-- Result Array to show all the comments from server -->
-        <li class="list-group-item" ng-repeat="result in resultArray">{{result.cmtName}}
+        <li class="list-group-item mainList" ng-repeat="result in resultArray">{{result.cmtName}}
           <span> - {{result.username}}</span>
           <span> , {{result.date}}</span>
           <ul class="list-group" ng-if="result.resComments" id="ul">
               <!-- Array to show all the reply to comments from server -->
 
-               <list class="list-group-item" ng-repeat="resComment in result.resComments"> Reply: {{resComment.comment}}  - {{resComment.commentUser}}, {{resComment.newDate}}</list>
+               <list class="list-group-item replyList" ng-repeat="resComment in result.resComments"> Reply: {{resComment.comment}}  - {{resComment.commentUser}}, {{resComment.newDate}}</list>
           </ul>
-          <button ng-click="replyBtn($index)">Reply</button>
+          <button ng-click="replyBtn($index)" class="replyButton">Reply</button>
+          <div style="clear:both;"></div>
           <div id="commentSection" ng-show="replyBtnClicked[$index]">
             <div ng-controller="CommentCtrl" class="form-group">
               <ul class="list-group" ng-if="comments">
                <list class="list-group-item" ng-repeat="comnt in comments"> Reply: {{comnt.comment}}  - {{comnt.commentUser}}, {{comnt.newDate}} </list>
               </ul>
-              <textarea ng-model="txtcomment2" placeholder="Reply..." ></textarea>
+              <textarea ng-model="txtcomment2" placeholder="Reply..." class="replyTextArea"></textarea>
               <button ng-click='btn_add($index)'>Post</button>
             </div>
           </div>
